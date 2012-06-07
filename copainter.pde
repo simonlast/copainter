@@ -19,6 +19,7 @@ interface JavaScript {
   
    JavaScript javascript;
 
+ PGraphics buffer;
 
 void setup(){
    size(screenWidth,screenHeight);
@@ -29,12 +30,27 @@ void setup(){
    strokeWeight(rad);
    stroke(col);
     brush = new ArrayList<PVector>();
+
+  buffer = createGraphics(width,height, P2D);
+  //buffer.setParent(this);
+  //buffer.setPrimary(false);
+  buffer.smooth();
+  buffer.noStroke();
+  buffer.beginDraw();
+  buffer.background(255);
+  buffer.endDraw();
    
 }
 
 void draw(){
- drawBrush();
+if(mousePressed)
+ 	drawBrush();
  drawControls();
+}
+
+void redrawBuffer(){
+	image(buffer, 0,0);
+	 drawControls();
 }
 
 void keyPressed(){
@@ -77,6 +93,8 @@ void mouseReleased(){
 	float rad2 = dist(mouseX,mouseY,0,height);
 	if((rad1 > controlRad[1]/2) && (rad2 > controlRad[0]/2)){
   sendStroke();
+	drawBrushToBuffer();
+	redrawBuffer();
   brush = new ArrayList<PVector>();
   noLoop();
 }
@@ -99,15 +117,17 @@ void sendStroke(){
 }
 
 void addStroke(float r, float g, float b, float rad, float[] x, float[] y){
-  
-  stroke(r,g,b);
-	noFill();
-  strokeWeight(rad);
-  beginShape();
+	buffer.beginDraw();  
+  buffer.stroke(r,g,b);
+	buffer.noFill();
+  buffer.strokeWeight(rad);
+  buffer.beginShape();
   for(int i=0; i<x.length; i++){
-     curveVertex(x[i], y[i]);
+     buffer.curveVertex(x[i], y[i]);
   }
-  endShape();
+  buffer.endShape();
+buffer.endDraw();
+	redrawBuffer();
   redraw();
   
 }
@@ -123,6 +143,21 @@ void drawBrush(){
   endShape();
   
 }
+void drawBrushToBuffer(){
+	buffer.beginDraw();
+  buffer.beginShape();
+  buffer.stroke(col);
+  buffer.strokeWeight(rad);
+  buffer.noFill();
+  for(PVector p : brush){
+    buffer.curveVertex(p.x, p.y);
+  }
+  buffer.endShape();
+buffer.endDraw();
+  
+}
+
+
 
 void drawControls(){
   noStroke();
