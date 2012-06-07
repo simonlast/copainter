@@ -5,8 +5,8 @@ var nowjs = require("now");
 
 
 var cache = {};
-cache['index'] = fs.readFileSync("./copaint.html");
-cache['app'] = fs.readFileSync("./copainter.pde")
+cache['index'] = fs.readFileSync('./copaint.html');
+cache['app'] = fs.readFileSync('./copainter.pde')
 
 var router = bee.route({ // Create a new router
 	"/": function(req, res) {
