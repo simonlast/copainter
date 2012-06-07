@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+
+		<title>CoPainter!</title>
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="http://simonlast.org/favicon.ico" />
+		<link rel="stylesheet" type="text/css" href="http://simonlast.org/style.css" />
+		
+		<script src="http://simonlast.org/scripts/processing.js" type="text/javascript"></script>
+		<script type="text/javascript">function getProcessingSketchID () { return 'copainter'; }</script>
+		<script src="/nowjs/now.js"></script>
+
+
+
+
+<script>
+
+
+</script>
+	</head>
+	<body id="paint" >
+		<script type="text/javascript"> 
+
+		now.name = "me";
+		
+
+
+		var bound = false;
+
+		       function bindJavascript() {
+		         var pjs = Processing.getInstanceById('copainter');
+		         if(pjs!=null) {
+		           pjs.bindJavascript(this);
+		           bound = true; }
+		         if(!bound) setTimeout(bindJavascript, 250);
+		       }
+		       bindJavascript();
+
+					function sendStroke(r,g,b,rad,x,y){
+						now.distribute(r,g,b,rad,x,y);
+					}
+					
+					now.receive = function(r,g,b,rad,x,y){
+						var pjs = Processing.getInstanceById('copainter');
+						pjs.addStroke(r,g,b,rad,x,y);
+					}
+
+
+		</script>
+
+	<div align="center" >
+	<canvas id="copainter" class="paintbrushCanvas"  data-processing-sources="/copainter.pde" 
+						>
+					<p>Your browser does not support the canvas tag.</p>
+					<!-- Note: you can put any alternative content here. -->
+				</canvas>
+		</div >
+	
+
+	</body>
+</html>
