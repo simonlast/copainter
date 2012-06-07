@@ -1,0 +1,15 @@
+{
+  "name": "copainter",
+  "subdomain": "paint",
+  "scripts": {
+    "start": "index.js"
+  },
+  "version": "0.0.0",
+  "engines": {
+    "node": "0.6.x"
+  },
+  "dependencies": {
+    "beeline": "0.1.x",
+    "now": "0.8.x"
+  }
+}
