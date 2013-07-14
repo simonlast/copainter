@@ -1,6 +1,6 @@
 copainter
 =========
 
-Paint with friends! (This is a first try at node!)
+Paint with friends!
 =========
-visit the Site: paint.jit.su
+visit the Site: paint.simonlast.org
